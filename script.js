@@ -121,7 +121,7 @@ document.querySelectorAll('.language-option').forEach(option => {
         if (lang === 'ar') {
             window.location.href = 'diorans-ar.html';
         } else {
-            window.location.href = 'diorans.html';
+            window.location.href = 'index.html';
         }
     });
 });
