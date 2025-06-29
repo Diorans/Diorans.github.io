@@ -20,8 +20,9 @@ body {
     background-color: var(--light-grey);
     color: var(--black);
     line-height: 1.6;
+    direction: rtl ;
+    
 }
-
 
 
 .container {
@@ -42,37 +43,68 @@ header {
 }
 
 .language-switcher {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    z-index: 2000;
-    position: fixed;
+  position: fixed;
+  top: 20px;
+  z-index: 2000;
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.language-option {
-    text-decoration: none;
-    color: #555;
-    padding: 2px 5px;
-    border-radius: 3px;
-    transition: all 0.2s;
+
+
+/* Default positioning (LTR) */
+[dir="ltr"] .language-switcher {
+  right: 20px;
+  left: auto;
 }
 
-.language-option:hover {
-    background: #f5f5f5;
+/* RTL positioning */
+[dir="rtl"] .language-switcher {
+  left: 20px;
+  right: auto;
 }
 
-.language-option.active {
-    color: #000;
-    font-weight: bold;
-    background: #f0f0f0;
-    visibility: visible; 
-    
+/* ===== Button Styles ===== */
+.lang-btn {
+  padding: 6px 12px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+  min-width: 40px;
+  text-align: center;
 }
 
-.separator {
-    color: #ddd;
+.lang-btn:hover {
+  background: #f5f5f5;
+  transform: translateY(-1px);
+}
+
+.lang-btn.active {
+  background: var(--primary-color, #ed5c0c);
+  color: white;
+  border-color: var(--primary-color, #ed5c0c);
+}
+
+
+/* ===== Mobile Responsiveness ===== */
+@media (max-width: 768px) {
+  .language-switcher {
+    top: 10px;
+    padding: 6px;
+  }
+  .lang-btn {
+    padding: 4px 8px;
+    font-size: 13px;
+  }
 }
 
 /* RTL styling */
