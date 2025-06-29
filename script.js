@@ -99,43 +99,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.querySelectorAll('.language-option').forEach(option => {
-    option.addEventListener('click', function(e) {
-        e.preventDefault();
-        const lang = this.getAttribute('data-lang');
-        
-        // Update active state
-        document.querySelectorAll('.language-option').forEach(opt => {
-            opt.classList.remove('active');
-        });
-        this.classList.add('active');
-        
-        // Set language and direction
-        document.documentElement.lang = lang;
-        document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
-        
-        // Save preference
-        localStorage.setItem('preferredLang', lang);
-        
-        // Load the appropriate page
-        if (lang === 'ar') {
-            window.location.href = 'diorans-ar.html';
-        } else {
-            window.location.href = 'index.html';
-        }
-    });
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. Determine current language
+  const isArabicPage = window.location.pathname.includes('-ar.html');
+  const currentLang = isArabicPage ? 'ar' : 'en';
+  
+  // 2. Set document attributes
+  document.documentElement.lang = currentLang;
+  document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+  
+  // 3. Set active button (critical fix)
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === currentLang);
+  });
+  
+  // 4. Set localStorage (optional but recommended)
+  try {
+    localStorage.setItem('diorans-lang', currentLang);
+  } catch (e) {
+    console.log("LocalStorage not available");
+  }
 });
 
-// Initialize on page load
-window.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('preferredLang');
-    if (savedLang) {
-        document.documentElement.lang = savedLang;
-        document.body.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
-        
-        // Update active button
-        document.querySelectorAll('.language-option').forEach(opt => {
-            opt.classList.toggle('active', opt.getAttribute('data-lang') === savedLang);
-        });
-    }
-});
+// Language switch function
+function switchLanguage(lang) {
+  localStorage.setItem('diorans-lang', lang);
+  window.location.href = lang === 'ar' ? 'diorans-ar.html' : 'index.html';
+}
